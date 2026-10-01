@@ -1,0 +1,478 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Photographs | Samvidhan Drishti</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, "Noto Sans", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #111827;
+    color: white;
+    padding: 25px 15px;
+}
+
+.logo {
+    padding: 10px 15px 25px;
+    border-bottom: 1px solid #374151;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.logo p {
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+.menu {
+    margin-top: 25px;
+}
+
+.menu a {
+    display: block;
+    padding: 13px 15px;
+    margin: 5px 0;
+    border-radius: 8px;
+    color: #d1d5db;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    background: #374151;
+    color: white;
+}
+
+.menu a.active {
+    background: #4f46e5;
+    color: white;
+}
+
+/* MAIN */
+
+.main {
+    margin-left: 240px;
+    min-height: 100vh;
+}
+
+.topbar {
+    height: 70px;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 30px;
+}
+
+.search {
+    width: 450px;
+}
+
+.search input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    font-size: 14px;
+}
+
+.status {
+    color: #15803d;
+    font-size: 13px;
+}
+
+/* CONTENT */
+
+.content {
+    padding: 30px;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.header p {
+    color: #6b7280;
+}
+
+/* GALLERY */
+
+.gallery {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(240px, 1fr));
+
+    gap: 22px;
+
+    margin-top: 30px;
+}
+
+.photo-card {
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    transition: 0.2s;
+
+}
+
+.photo-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.10);
+
+}
+
+.photo-container {
+
+    height: 220px;
+
+    background: #eef0f4;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+.photo-container img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+
+}
+
+.photo-info {
+
+    padding: 15px;
+
+}
+
+.photo-name {
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    word-break: break-word;
+
+}
+
+.photo-number {
+
+    color: #9ca3af;
+
+    font-size: 12px;
+
+    margin-top: 6px;
+
+}
+
+/* EMPTY */
+
+.empty {
+
+    background: white;
+
+    padding: 50px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    margin-top: 30px;
+
+}
+
+.empty-icon {
+
+    font-size: 60px;
+
+}
+
+/* MOBILE */
+
+@media(max-width: 800px) {
+
+    .sidebar {
+        width: 70px;
+    }
+
+    .logo h1,
+    .logo p,
+    .menu span {
+        display: none;
+    }
+
+    .main {
+        margin-left: 70px;
+    }
+
+    .search {
+        width: 250px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<h1>संविधान दृष्टि</h1>
+
+<p>Samvidhan Drishti</p>
+
+</div>
+
+
+<div class="menu">
+
+<a href="/">
+🏠 <span>Dashboard</span>
+</a>
+
+<a href="/writings">
+📚 <span>Writings</span>
+</a>
+
+<a href="/debates">
+🏛️ <span>Debates</span>
+</a>
+
+<a href="/audio">
+🎙️ <span>Audio</span>
+</a>
+
+<a href="/video">
+🎥 <span>Videos</span>
+</a>
+
+<a href="/images" class="active">
+🖼️ <span>Photographs</span>
+</a>
+
+<a href="/search">
+🤖 <span>Evidence AI</span>
+</a>
+
+</div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+
+<div class="topbar">
+
+<div class="search">
+
+<input
+id="searchBox"
+type="text"
+placeholder="Search photographs..."
+onkeyup="searchPhotos()"
+>
+
+</div>
+
+<div class="status">
+
+🟢 Offline Archive
+
+</div>
+
+</div>
+
+
+<div class="content">
+
+
+<div class="header">
+
+<h2>🖼️ Photographic Archive</h2>
+
+<p>
+Historical photographs from the Samvidhan Drishti digital heritage collection.
+</p>
+
+<h4>
+{{ files|length }} photographs available
+</h4>
+
+</div>
+
+
+{% if files %}
+
+<div class="gallery" id="gallery">
+
+
+{% for file in files %}
+
+<div
+class="photo-card"
+data-name="{{ file|lower }}"
+>
+
+<div class="photo-container">
+
+<img
+src="{{ url_for('serve_image', filename=file) }}"
+alt="{{ file }}"
+loading="lazy"
+>
+
+</div>
+
+
+<div class="photo-info">
+
+<div class="photo-name">
+
+{{ file }}
+
+</div>
+
+<div class="photo-number">
+
+Photograph {{ loop.index }}
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+
+</div>
+
+
+{% else %}
+
+
+<div class="empty">
+
+<div class="empty-icon">
+🖼️
+</div>
+
+<h2>No photographs found</h2>
+
+<p>
+
+No image files were found in:
+
+</p>
+
+<code>
+~/samvidhan_drishti/images/
+</code>
+
+</div>
+
+
+{% endif %}
+
+
+</div>
+
+</main>
+
+
+<script>
+
+function searchPhotos() {
+
+    let search =
+        document
+        .getElementById("searchBox")
+        .value
+        .toLowerCase();
+
+    let cards =
+        document.querySelectorAll(".photo-card");
+
+    cards.forEach(function(card) {
+
+        let name =
+            card.getAttribute("data-name");
+
+        if (name.includes(search)) {
+
+            card.style.display = "";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+
+</body>
+
+</html>
+```

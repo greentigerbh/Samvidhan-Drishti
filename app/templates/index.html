@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Samvidhan Drishti</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family:
+        Arial,
+        "Noto Sans",
+        sans-serif;
+    background: #f4f6fb;
+    color: #172033;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background:
+        linear-gradient(
+            180deg,
+            #111827,
+            #1e293b
+        );
+    color: white;
+    padding: 25px 16px;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.brand {
+    padding: 8px 12px 25px;
+    border-bottom: 1px solid #374151;
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.brand p {
+    margin-top: 8px;
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    margin-left: 250px;
+    min-height: 100vh;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    height: 72px;
+    background: rgba(255,255,255,.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+.global-search {
+    width: 55%;
+}
+
+.global-search input {
+    width: 100%;
+    padding: 13px 18px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    outline: none;
+    font-size: 14px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content {
+    padding: 35px;
+}
+
+.hero {
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #312e81
+        );
+    color: white;
+    border-radius: 20px;
+    padding: 35px;
+    margin-bottom: 30px;
+}
+
+.hero h2 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.hero p {
+    color: #d1d5db;
+}
+
+/* =========================
+   STATISTICS
+========================= */
+
+.stats {
+    display: grid;
+    grid-template-columns:
+        repeat(5,1fr);
+    gap: 18px;
+    margin-bottom: 35px;
+}
+
+.stat {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* =========================
+   DOCUMENTS
+========================= */
+
+.documents {
+    display: grid;
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(250px,1fr)
+        );
+    gap: 18px;
+}
+
+.document {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.open-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 9px 14px;
+    background: #4f46e5;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+/* =========================
+   AUDIO
+========================= */
+
+.audio-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(300px,1fr)
+        );
+    gap: 18px;
+}
+
+.audio-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.audio-card audio {
+    width: 100%;
+}
+
+/* =========================
+   VIDEOS
+========================= */
+
+.video-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(320px,1fr)
+        );
+    gap: 20px;
+}
+
+.video-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.video-card video {
+    width: 100%;
+}
+
+/* =========================
+   PHOTOS
+========================= */
+
+.photo-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(190px,1fr)
+        );
+    gap: 15px;
+}
+
+.photo {
+    background: white;
+    border-radius: 13px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    cursor: pointer;
+}
+
+.photo img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.85);
+    z-index: 5000;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<div class="brand">
+
+<h1>संविधान दृष्टि</h1>
+
+<p>Samvidhan Drishti</p>
+
+</div>
+
+<a class="nav-item active"
+   href="#dashboard">
+🏠
+<span>Dashboard</span>
+</a>
+
+<a class="nav-item"
+   href="#writings">
+📚
+<span>Writings</span>
+</a>
+
+<a class="nav-item"
+   href="#speeches">
+🎙️
+<span>Speeches & Audio</span>
+</a>
+
+<a class="nav-item"
+   href="#debates">
+🏛️
+<span>Assembly Debates</span>
+</a>
+
+<a class="nav-item"
+   href="#videos">
+🎥
+<span>Videos</span>
+</a>
+
+<a class="nav-item"
+   href="#photos">
+🖼️
+<span>Photographs</span>
+</a>
+
+<a class="nav-item"
+   href="#evidence">
+🤖
+<span>Evidence AI</span>
+</a>
+
+<a class="nav-item"
+   href="#heritage">
+🔗
+<span>Heritage Graph</span>
+</a>
+
+<a class="nav-item"
+   href="#passport">
+🛡️
+<span>Archive Passport</span>
+</a>
+
+</aside>
+
+<main class="main">
+
+<header class="topbar">
+
+<div class="global-search">
+
+<input
+id="globalSearch"
+type="text"
+placeholder="🔎 Search the entire archive..."
+onkeyup="globalSearch()"
+>
+
+</div>
+
+<div>
+🟢 Offline Archive
+</div>
+
+</header>
+
+<div class="content"
+     id="dashboard">
+
+<section class="hero">
+
+<h2>Samvidhan Drishti</h2>
+
+<p>
+Digital Heritage Archive of Dr. B. R. Ambedkar
+</p>
+
+<p>
+Writings • Speeches • Debates • Audio • Video • Photographs
+</p>
+
+</section>
+
+<div class="stats">
+
+<div class="stat">
+<div>📚</div>
+<div class="stat-number">
+{{ writings_count }}
+</div>
+<div>Writings & Documents</div>
+</div>
+
+<div class="stat">
+<div>🎙️</div>
+<div class="stat-number">
+{{ audio_count }}
+</div>
+<div>Speeches & Audio</div>
+</div>
+
+<div class="stat">
+<div>🏛️</div>
+<div class="stat-number">
+{{ debates_count }}
+</div>
+<div>Assembly Debates</div>
+</div>
+
+<div class="stat">
+<div>🎥</div>
+<div class="stat-number">
+{{ video_count }}
+</div>
+<div>Videos</div>
+</div>
+
+<div class="stat">
+<div>🖼️</div>
+<div class="stat-number">
+{{ images_count }}
+</div>
+<div>Photographs</div>
+</div>
+
+</div>
+
+<section id="writings" class="section">
+
+<h2>📚 Writings & Speeches</h2>
+
+{% if writings %}
+
+<div class="documents">
+
+{% for file in writings %}
+
+<div class="document searchable"
+     data-name="{{ file|lower }}">
+
+<div>📕</div>
+
+<div>
+{{ file }}
+</div>
+
+<a class="open-btn"
+   href="{{ url_for('serve_writing', filename=file) }}"
+   target="_blank">
+
+📖 Open PDF
+
+</a>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div>No writings found.</div>
+
+{% endif %}
+
+</section>
+
+<section id="speeches" class="section">
+
+<h2>🎙️ Speeches & Audio Archive</h2>
+
+{% if audio %}
+
+<div class="audio-grid">
+
+{% for file in audio %}
+
+<div class="audio-card searchable"
+     data-name="{{ file|lower }}">
+
+<h3>🎙️ {{ file }}</h3>
+
+<audio controls>
+
+<source
+src="{{ url_for('serve_audio', filename=file) }}"
+>
+
+</audio>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div>No audio or speeches found.</div>
+
+{% endif %}
+
+</section>
+
+<section id="debates" class="section">
+
+<h2>🏛️ Constituent Assembly Debates</h2>
+
+{% if debates %}
+
+<div class="documents">
+
+{% for file in debates %}
+
+<div class="document searchable"
+     data-name="{{ file|lower }}">
+
+<div>🏛️</div>
+
+<div>
+{{ file }}
+</div>
+
+<a class="open-btn"
+href="{{ url_for('serve_debate', filename=file) }}"
+target="_blank">
+
+📜 Open Debate
+
+</a>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div>No debate records found.</div>
+
+{% endif %}
+
+</section>
+
+<section id="videos" class="section">
+
+<h2>🎥 Video Archive</h2>
+
+{% if videos %}
+
+<div class="video-grid">
+
+{% for file in videos %}
+
+<div class="video-card searchable"
+     data-name="{{ file|lower }}">
+
+<video controls preload="metadata">
+
+<source
+src="{{ url_for('serve_video', filename=file) }}"
+>
+
+</video>
+
+<div>
+🎥 {{ file }}
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div>No videos found.</div>
+
+{% endif %}
+
+</section>
+
+<section id="photos" class="section">
+
+<h2>🖼️ Photographic Archive</h2>
+
+{% if images %}
+
+<div class="photo-grid">
+
+{% for file in images %}
+
+<div class="photo searchable"
+onclick="openImage(
+'{{ url_for("serve_image", filename=file) }}'
+)"
+data-name="{{ file|lower }}">
+
+<img
+src="{{ url_for('serve_image', filename=file) }}"
+alt="{{ file }}"
+loading="lazy"
+>
+
+<div>
+{{ file }}
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div>No photographs found.</div>
+
+{% endif %}
+
+</section>
+
+<section id="evidence" class="section">
+
+<h2>🤖 Evidence AI</h2>
+
+<div>
+
+<h2>Source-Grounded Archive Intelligence</h2>
+
+<p>
+Ask questions about the archive and retrieve
+answers with documentary evidence.
+</p>
+
+<p>
+<strong>Coming next:</strong>
+Offline AI + SQLite + source citations.
+</p>
+
+</div>
+
+</section>
+
+<section id="heritage" class="section">
+
+<h2>🔗 Heritage Graph</h2>
+
+<div>
+
+<h2>
+People • Places • Events • Documents
+</h2>
+
+<p>
+The Heritage Graph will connect people,
+writings, debates, locations and historical events.
+</p>
+
+</div>
+
+</section>
+
+<section id="passport" class="section">
+
+<h2>🛡️ Archive Passport</h2>
+
+<div>
+
+<h2>
+Digital Provenance & Integrity
+</h2>
+
+<p>
+Source, file integrity, version history and
+archival metadata will be shown here.
+</p>
+
+</div>
+
+</section>
+
+</div>
+
+</main>
+
+<div
+class="modal"
+id="imageModal"
+onclick="closeImage()">
+
+<div class="modal-content">
+
+<div
+class="close"
+onclick="closeImage()">
+×
+</div>
+
+<img
+id="modalImage"
+src=""
+>
+
+</div>
+
+</div>
+
+<script>
+
+function openImage(src) {
+
+document
+.getElementById("modalImage")
+.src = src;
+
+document
+.getElementById("imageModal")
+.classList
+.add("active");
+
+}
+
+function closeImage() {
+
+document
+.getElementById("imageModal")
+.classList
+.remove("active");
+
+}
+
+function globalSearch() {
+
+const query =
+document
+.getElementById("globalSearch")
+.value
+.toLowerCase()
+.trim();
+
+const items =
+document
+.querySelectorAll(".searchable");
+
+items.forEach(function(item) {
+
+const name =
+item.getAttribute("data-name");
+
+if (!query || name.includes(query)) {
+
+item.style.display = "";
+
+} else {
+
+item.style.display = "none";
+
+}
+
+});
+
+}
+
+document.addEventListener(
+"keydown",
+function(event) {
+
+if (event.key === "Escape") {
+
+closeImage();
+
+}
+
+});
+
+</script>
+
+</body>
+
+</html>

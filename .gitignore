@@ -1,0 +1,40 @@
+
+#python
+venv/
+env/
+.venv/
+_pycache_/
+*.pyc
+*.pyo
+
+
+# Enviorment / secrets
+.env
+.env.*
+!.env.example
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated files
+*.log
+*.tmp
+*.swp
+
+# Large media - upload these separately to cloud storage
+audio/
+video/
+writings/
+speeches/
+debates/
+images/
